@@ -1,7 +1,9 @@
 services:
-  caddy:
+  pleroma:
     image: confuseder/pleroma:latest
     container_name: pleroma
+    depends_on:
+      - db
     restart: always
     volumes:
       - ./config.exs:/etc/pleroma/config.exs
@@ -9,3 +11,15 @@ services:
       - ./uploads:/var/lib/pleroma/uploads
       - ./static:/var/lib/pleroma/static
     hostname: pleroma
+
+  db:
+    image: postgres:15
+    container_name: pleroma_db
+    restart: always
+    environment:
+      POSTGRES_USER: pleroma
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pleroma
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    hostname: pleromadb
