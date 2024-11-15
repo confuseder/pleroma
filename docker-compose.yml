@@ -1,0 +1,11 @@
+services:
+  caddy:
+    image: confuseder/pleroma:latest
+    container_name: pleroma
+    restart: always
+    volumes:
+      - ./config.exs:/etc/pleroma/config.exs
+      - ./app:/opt/pleroma
+      - ./uploads:/var/lib/pleroma/uploads
+      - ./static:/var/lib/pleroma/static
+    hostname: pleroma
